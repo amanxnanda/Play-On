@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:image_list_view/models/sports_model.dart';
 import 'package:image_list_view/services/service_api.dart';
 
+List<GenericModel> globalGenericModel;
+
 class HomePage extends StatefulWidget {
   HomePage({Key key}) : super(key: key);
 
@@ -11,8 +13,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   ApiService _as = ApiService();
-
-  List<GenericModel> _genericModel;
 
   @override
   Widget build(BuildContext context) {
@@ -28,10 +28,10 @@ class _HomePageState extends State<HomePage> {
               final List<GenericModel> genericModel = await _as.getData(0, 10);
 
               setState(() {
-                _genericModel = genericModel;
+                globalGenericModel = genericModel;
               });
-
-              print(_genericModel);
+              Navigator.pushNamed(context, '/second');
+              print(globalGenericModel);
             },
           ),
         ),
