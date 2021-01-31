@@ -1,27 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:image_list_view/screens/HomePage/home_page.dart';
-import 'package:image_list_view/screens/ImagePage/image_page.dart';
+import 'package:splashscreen/splashscreen.dart';
 
-void main() {
-  runApp(MyApp());
+void main() => runApp(MyApp());
+
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
 }
 
-class MyApp extends StatelessWidget {
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
       theme: ThemeData(
         primarySwatch: Colors.amber,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      initialRoute: '/',
-      routes: {
-        // When navigating to the "/" route, build the FirstScreen widget.
-        '/': (context) => HomePage(),
-        // When navigating to the "/second" route, build the SecondScreen widget.
-        '/second': (context) => ImagePage(),
-      },
+      home: Scaffold(
+        body: SplashScreen(
+          seconds: 3,
+          navigateAfterSeconds: HomePage(),
+          imageBackground: AssetImage('assets/images/splash.gif'),
+          loaderColor: Colors.white,
+        ),
+      ),
     );
   }
 }
+
+// class AfterSplash extends StatelessWidget {
+//   @override
+//   Widget build(BuildContext context) {
+//     return HomePage();
+//   }
+// }

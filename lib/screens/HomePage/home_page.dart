@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_list_view/models/sports_model.dart';
+import 'package:image_list_view/screens/ImagePage/image_page.dart';
 import 'package:image_list_view/services/service_api.dart';
 
 List<GenericModel> globalGenericModel;
@@ -46,7 +47,8 @@ class _HomePageState extends State<HomePage> {
                   setState(() {
                     globalGenericModel = genericModel;
                   });
-                  Navigator.pushNamed(context, '/second');
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => ImagePage()));
                 },
               ),
             ],
