@@ -24,6 +24,7 @@ class _HomePageState extends State<HomePage> {
         color: Colors.amber,
         child: Center(
           child: RaisedButton(
+            child: Text('Images'),
             onPressed: () async {
               final List<GenericModel> genericModel = await _as.getData(0, 10);
 
