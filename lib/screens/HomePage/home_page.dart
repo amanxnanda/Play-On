@@ -21,19 +21,35 @@ class _HomePageState extends State<HomePage> {
         title: Text('Play ON'),
       ),
       body: Container(
-        color: Colors.amber,
         child: Center(
-          child: RaisedButton(
-            child: Text('Images'),
-            onPressed: () async {
-              final List<GenericModel> genericModel = await _as.getData(0, 10);
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                'offset: 0',
+                style: TextStyle(fontSize: 40.0),
+              ),
+              Text(
+                'limit: 10',
+                style: TextStyle(fontSize: 40.0),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              RaisedButton(
+                child: Text('Images'),
+                onPressed: () async {
+                  final List<GenericModel> genericModel =
+                      await _as.getData(0, 10);
 
-              setState(() {
-                globalGenericModel = genericModel;
-              });
-              Navigator.pushNamed(context, '/second');
-              print(globalGenericModel);
-            },
+                  setState(() {
+                    globalGenericModel = genericModel;
+                  });
+                  Navigator.pushNamed(context, '/second');
+                },
+              ),
+            ],
           ),
         ),
       ),
