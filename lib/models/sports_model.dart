@@ -34,11 +34,11 @@ class GenericModel {
   List<String> images;
   dynamic files;
   String name;
-  List<String> dayOfWeeksOpen;
-  String openTime;
-  String closeTime;
+  List<DayOfWeeksOpen> dayOfWeeksOpen;
+  OpenTime openTime;
+  CloseTime closeTime;
   int slotTimeSize;
-  int costPerSlot;
+  double costPerSlot;
   dynamic active;
   dynamic establishment;
   Sports sports;
@@ -47,12 +47,15 @@ class GenericModel {
         createOn: DateTime.parse(json["createOn"]),
         updatedOn: DateTime.parse(json["updatedOn"]),
         id: json["id"],
-        images: List<String>.from(json["images"].map((x) => x)),
+        images: json["images"] == null
+            ? null
+            : List<String>.from(json["images"].map((x) => x)),
         files: json["files"],
         name: json["name"],
-        dayOfWeeksOpen: List<String>.from(json["dayOfWeeksOpen"].map((x) => x)),
-        openTime: json["openTime"],
-        closeTime: json["closeTime"],
+        dayOfWeeksOpen: List<DayOfWeeksOpen>.from(
+            json["dayOfWeeksOpen"].map((x) => dayOfWeeksOpenValues.map[x])),
+        openTime: openTimeValues.map[json["openTime"]],
+        closeTime: closeTimeValues.map[json["closeTime"]],
         slotTimeSize: json["slotTimeSize"],
         costPerSlot: json["costPerSlot"],
         active: json["active"],
@@ -64,12 +67,14 @@ class GenericModel {
         "createOn": createOn.toIso8601String(),
         "updatedOn": updatedOn.toIso8601String(),
         "id": id,
-        "images": List<dynamic>.from(images.map((x) => x)),
+        "images":
+            images == null ? null : List<dynamic>.from(images.map((x) => x)),
         "files": files,
         "name": name,
-        "dayOfWeeksOpen": List<dynamic>.from(dayOfWeeksOpen.map((x) => x)),
-        "openTime": openTime,
-        "closeTime": closeTime,
+        "dayOfWeeksOpen": List<dynamic>.from(
+            dayOfWeeksOpen.map((x) => dayOfWeeksOpenValues.reverse[x])),
+        "openTime": openTimeValues.reverse[openTime],
+        "closeTime": closeTimeValues.reverse[closeTime],
         "slotTimeSize": slotTimeSize,
         "costPerSlot": costPerSlot,
         "active": active,
@@ -77,6 +82,26 @@ class GenericModel {
         "sports": sports.toJson(),
       };
 }
+
+enum CloseTime { THE_1800 }
+
+final closeTimeValues = EnumValues({"18:00": CloseTime.THE_1800});
+
+enum DayOfWeeksOpen { MON, TUE, WED, THU, FRI, SAT, SUN }
+
+final dayOfWeeksOpenValues = EnumValues({
+  "Fri": DayOfWeeksOpen.FRI,
+  "Mon": DayOfWeeksOpen.MON,
+  "Sat": DayOfWeeksOpen.SAT,
+  "Sun": DayOfWeeksOpen.SUN,
+  "Thu": DayOfWeeksOpen.THU,
+  "Tue": DayOfWeeksOpen.TUE,
+  "Wed": DayOfWeeksOpen.WED
+});
+
+enum OpenTime { THE_0900 }
+
+final openTimeValues = EnumValues({"09:00": OpenTime.THE_0900});
 
 class Sports {
   Sports({
@@ -91,7 +116,7 @@ class Sports {
   dynamic createOn;
   dynamic updatedOn;
   int id;
-  String name;
+  Name name;
   String iconWhiteUrl;
   String iconBlackUrl;
 
@@ -99,7 +124,7 @@ class Sports {
         createOn: json["createOn"],
         updatedOn: json["updatedOn"],
         id: json["id"],
-        name: json["name"],
+        name: nameValues.map[json["name"]],
         iconWhiteUrl: json["iconWhiteUrl"],
         iconBlackUrl: json["iconBlackUrl"],
       );
@@ -108,8 +133,30 @@ class Sports {
         "createOn": createOn,
         "updatedOn": updatedOn,
         "id": id,
-        "name": name,
+        "name": nameValues.reverse[name],
         "iconWhiteUrl": iconWhiteUrl,
         "iconBlackUrl": iconBlackUrl,
       };
+}
+
+enum Name { BASKETBALL, BADMINTON, FOOTBALL }
+
+final nameValues = EnumValues({
+  "Badminton": Name.BADMINTON,
+  "Basketball": Name.BASKETBALL,
+  "Football": Name.FOOTBALL
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    if (reverseMap == null) {
+      reverseMap = map.map((k, v) => new MapEntry(v, k));
+    }
+    return reverseMap;
+  }
 }
