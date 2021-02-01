@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_list_view/models/sports_model.dart';
-import 'package:image_list_view/screens/ImagePage/image_page.dart';
+import 'package:image_list_view/screens/DetailsPage/details_page.dart';
 import 'package:image_list_view/services/service_api.dart';
 
 List<GenericModel> globalGenericModel;
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
                 height: 20,
               ),
               RaisedButton(
-                child: Text('Images'),
+                child: Text('Details'),
                 onPressed: () async {
                   final List<GenericModel> genericModel =
                       await _as.getData(0, 10);
@@ -48,7 +48,7 @@ class _HomePageState extends State<HomePage> {
                     globalGenericModel = genericModel;
                   });
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => ImagePage()));
+                      MaterialPageRoute(builder: (context) => DetailsPage()));
                 },
               ),
             ],

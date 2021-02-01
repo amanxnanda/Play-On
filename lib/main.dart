@@ -29,9 +29,4 @@ class _MyAppState extends State<MyApp> {
   }
 }
 
-// class AfterSplash extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return HomePage();
-//   }
-// }
+
