@@ -4,7 +4,7 @@
 
 ### This project was just demonstration purposes only
 
-<img src="https://media.giphy.com/media/guEys4xfN98UsUAWp8/giphy.gif" width="500" />
+<img src="https://media.giphy.com/media/guEys4xfN98UsUAWp8/giphy.gif" width="300" />
 
 
 ###nThis was the api - http://playonnuat-env.eba-ernpdw3w.ap-south-1.elasticbeanstalk.com/api/v1/establishment/test/list?offset=0&limit=10
